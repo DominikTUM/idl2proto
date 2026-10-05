@@ -1,0 +1,67 @@
+#include "common.idl"
+
+module demo {
+  module sensors {
+
+    const unsigned short MAX_SAMPLES = 16 * 4;
+
+    typedef double Vector3[3];
+    typedef sequence<octet, 1024> Blob;
+    typedef sequence<float> FloatSeq;
+
+    @bit_bound(8)
+    bitmask Flags { CALIBRATED, @position(3) LOW_BATTERY, STREAMING };
+
+    enum Mode {
+      @value(1) IDLE,
+      ACTIVE,
+      STANDBY
+    };
+
+    @appendable
+    struct Header {
+      @key string<demo::common::MAX_NAME_LEN> device_id;
+      common::Timestamp stamp;
+    };
+
+    struct Position : Header {
+      Vector3 location;        /* x, y, z in m */
+      double rotation[2][2];
+      @optional float temperature;
+    };
+
+    union Reading switch (Mode) {
+      case IDLE:
+        int16 raw_value;
+      case ACTIVE:
+      case STANDBY:
+        sequence<float, MAX_SAMPLES> samples;
+      default:
+        string note;
+    };
+
+    @mutable
+    struct DeviceStatus {
+      @key @id(10) uint32 deviceId;
+      common::Status status;
+      Mode mode;
+      Flags flags;
+      Blob last_packet;
+      sequence<FloatSeq> histograms;
+      map<string, FloatSeq> channel_values;
+      map<common::Timestamp, long> by_time;
+      Reading reading;
+      long double precise_value;
+      char unit_code;
+      wstring operator_note;
+      fixed<10, 2> price;
+      sequence<Position, 8> history;
+      sequence<sequence<sequence<long>>> grid;
+      long long counter;   //@key
+    };
+
+    interface Control { void reset(); };
+  };
+};
+
+#pragma keylist demo::sensors::DeviceStatus status

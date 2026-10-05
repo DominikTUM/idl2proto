@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "idl2proto"
+dynamic = ["version"]
+description = "Convert OMG IDL (IDL 4.x / DDS-XTypes) into Protocol Buffers (proto3)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Dominik Mehringer" }]
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["idl", "omg-idl", "dds", "xtypes", "protobuf", "proto3", "converter", "code-generation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "grpcio-tools"]
+
+[project.scripts]
+idl2proto = "idl2proto.core:main"
+
+[project.urls]
+Homepage = "https://github.com/OWNER/idl2proto"
+Issues = "https://github.com/OWNER/idl2proto/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "idl2proto.core.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

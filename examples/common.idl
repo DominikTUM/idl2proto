@@ -1,0 +1,17 @@
+#ifndef COMMON_IDL
+#define COMMON_IDL
+
+module demo {
+  module common {
+    const long MAX_NAME_LEN = 64;
+
+    struct Timestamp {
+      int64 sec;
+      uint32 nanosec;
+    };
+
+    enum Status { OK, WARNING, ERROR };
+  };
+};
+
+#endif

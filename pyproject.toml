@@ -31,8 +31,8 @@ test = ["pytest>=7", "grpcio-tools"]
 idl2proto = "idl2proto.core:main"
 
 [project.urls]
-Homepage = "https://github.com/OWNER/idl2proto"
-Issues = "https://github.com/OWNER/idl2proto/issues"
+Homepage = "https://github.com/DominikTUM/idl2proto"
+Issues = "https://github.com/DominikTUM/idl2proto/issues"
 
 [tool.setuptools.dynamic]
 version = { attr = "idl2proto.core.__version__" }

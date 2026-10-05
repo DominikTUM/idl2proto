@@ -41,7 +41,7 @@ import sys
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-__version__ = "1.0.0"
+__version__ = "0.1.0"
 
 MAX_FIELD_NUMBER = 536_870_911
 RESERVED_FIELD_RANGE = range(19000, 20000)
